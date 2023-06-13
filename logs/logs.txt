@@ -1,0 +1,9 @@
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_10.json;17832
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_1.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_2.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_3.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_4.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_5.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_6.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_7.json;30000
+h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_8.json;30000
