@@ -14,35 +14,47 @@ import id.budsus.rethinkdb.RethinkDBTools;
  *
  */
 public class App {
-    public static void main( String[] args ) throws Exception {
-        String[] extensions = {"json", "jsonl"};
-        // read for train path 
-        List<String> files = FileTools.findFiles(Paths.get(args[0]), extensions);
-        // read for test path 
-        files.addAll(FileTools.findFiles(Paths.get(args[1]), extensions));
-        // read for validation path 
-        files.addAll(FileTools.findFiles(Paths.get(args[2]), extensions));
+    public static void main(String[] args) throws Exception {
+        String[] extensions = { "json", "jsonl" };
+        String[] langs = { "go", "java", "javascript", "python", "php", "ruby" };
+        
+        for (String lang : langs) {
+            String pathStrLangBase = args[0].concat(lang)
+                    .concat(System.getProperty("file.separator"))
+                    .concat("final")
+                    .concat(System.getProperty("file.separator"))
+                    .concat("jsonl")
+                    .concat(System.getProperty("file.separator"));
+            String pathStrLangTrain = pathStrLangBase.concat("train");
+            String pathStrLangTest = pathStrLangBase.concat("test");
+            String pathStrLangValid = pathStrLangBase.concat("valid");
 
-        RethinkDBTools rethinkdb = new RethinkDBTools();
-        rethinkdb.createTable(args[4]);
+            // read for train path
+            List<String> files = FileTools.findFiles(Paths.get(pathStrLangTrain), extensions);
+            // read for test path
+            files.addAll(FileTools.findFiles(Paths.get(pathStrLangTest), extensions));
+            // read for validation path
+            files.addAll(FileTools.findFiles(Paths.get(pathStrLangValid), extensions));
 
-        for(String f:files) {
-            File fileJSON = new File(f);
-            List<String> str = FileTools.readLines(fileJSON);
-            int i = 0;
-            System.out.println(f + " ---");
-            for(String json:str) {
-                i++;
-                CodeSearchNet csn = CSNJSONTools.getCSNObjectFromJSON(json);
-                csn.setObjectId(Integer.toHexString(System.identityHashCode(csn)));
-                rethinkdb.insert(args[4], csn);
-                System.out.print(".");
+            RethinkDBTools rethinkdb = new RethinkDBTools();
+            rethinkdb.createTable(lang);
+
+            for (String f : files) {
+                File fileJSON = new File(f);
+                List<String> str = FileTools.readLines(fileJSON);
+                int i = 0;
+                System.out.println(f + " ---");
+                for (String json : str) {
+                    i++;
+                    CodeSearchNet csn = CSNJSONTools.getCSNObjectFromJSON(json);
+                    csn.setObjectId(Integer.toHexString(System.identityHashCode(csn)));
+                    rethinkdb.insert(lang, csn);
+                    System.out.print(".");
+                }
+                System.out.println("");
+                System.out.println("---- " + i + " done ----- ");
+                FileTools.writeStringToFile(args[1], f + ";" + i);
             }
-            System.out.println("");
-            System.out.println("---- " + i + " done ----- ");
-            FileTools.writeStringToFile(args[3], f + ";" + i);
         }
-
-        System.out.println(RethinkDBTools.getCountTableRow(args[4]));
     }
 }

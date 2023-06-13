@@ -16,7 +16,12 @@ import lombok.Setter;
 public class CodeSearchNet {
     private String repo;
     private String path;
+    private String language;
+    private String code;
     private String func_name;
+    private String docstring;
+    private String[] docstring_tokens;
+    private String original_string;
     private String[] code_tokens;
     private String sha;
     private String url;

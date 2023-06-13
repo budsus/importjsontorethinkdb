@@ -80,11 +80,8 @@
         <version>1.2.1</version>
         <configuration>
           <arguments>
-            <argument>H:\dataset\CodeSearchNet\resources\data\go\final\jsonl\train\</argument>
-            <argument>H:\dataset\CodeSearchNet\resources\data\go\final\jsonl\test\</argument>
-            <argument>H:\dataset\CodeSearchNet\resources\data\go\final\jsonl\valid\</argument>
+            <argument>H:\dataset\CodeSearchNet\resources\data\</argument>
             <argument>H:\Projects\importjsontorethinkdb\logs\logs.txt</argument>
-            <argument>go</argument>
           </arguments>
           <mainClass>id.budsus.App</mainClass>
         </configuration>

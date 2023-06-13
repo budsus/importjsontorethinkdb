@@ -30,7 +30,7 @@ public class RethinkDBTools {
         r.db("codesearchnet").table(tableName).insert(csn).run(conn, OptArgs.of("array_limit",1000000));
     }
 
-    public static int getCountTableRow(String tableName) {
+    public int getCountTableRow(String tableName) {
         int result = 0;
         Result<Object> cursor = r.db("codesearchnet").table(tableName).count().run(conn);
         for (Object row : cursor) {
