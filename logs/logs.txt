@@ -1,2 +1,0 @@
-h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_10.json;17832
-h:\dataset\codesearchnet\resources\data\go\final\jsonl\train\go_train_1.json;30000

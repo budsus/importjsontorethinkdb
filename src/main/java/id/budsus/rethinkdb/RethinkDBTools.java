@@ -1,10 +1,6 @@
 package id.budsus.rethinkdb;
 
-import java.util.List;
-
 import com.rethinkdb.RethinkDB;
-import com.rethinkdb.gen.ast.Contains;
-import com.rethinkdb.model.GroupedResult;
 import com.rethinkdb.model.OptArgs;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Result;

@@ -4,9 +4,12 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.bson.Document;
+
 import id.budsus.files.FileTools;
 import id.budsus.json.CSNJSONTools;
 import id.budsus.json.CodeSearchNet;
+import id.budsus.mongodb.MongoDBTools;
 import id.budsus.rethinkdb.RethinkDBTools;
 
 /**
@@ -36,8 +39,8 @@ public class App {
             // read for validation path
             files.addAll(FileTools.findFiles(Paths.get(pathStrLangValid), extensions));
 
-            RethinkDBTools rethinkdb = new RethinkDBTools();
-            rethinkdb.createTable(lang);
+            MongoDBTools mongodb = new MongoDBTools();
+            mongodb.setLogFile(args[1]);
 
             for (String f : files) {
                 File fileJSON = new File(f);
@@ -46,14 +49,15 @@ public class App {
                 System.out.println(f + " ---");
                 for (String json : str) {
                     i++;
-                    CodeSearchNet csn = CSNJSONTools.getCSNObjectFromJSON(json);
-                    csn.setObjectId(Integer.toHexString(System.identityHashCode(csn)));
-                    rethinkdb.insert(lang, csn);
-                    System.out.print(".");
+                    // CodeSearchNet csn = CSNJSONTools.getCSNObjectFromJSON(json);
+                    // csn.setObjectId(Integer.toHexString(System.identityHashCode(csn)));
+                    // mongodb.insert(lang, csn);
+                    Document doc = Document.parse(json);
+                    mongodb.insertDoc(doc);
+                    //System.out.print(".");
                 }
                 System.out.println("");
                 System.out.println("---- " + i + " done ----- ");
-                FileTools.writeStringToFile(args[1], f + ";" + i);
             }
         }
     }
